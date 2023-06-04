@@ -1,18 +1,19 @@
-const button = document.querySelector('button');
-const inputs = Array.from(document.querySelectorAll('input'));
+const form = document.querySelector('.form');
 
-button.addEventListener('click', onButton);
+form.addEventListener('submit', handleSubmit);
 
-function onButton(event) {
+function handleSubmit(event) {
   event.preventDefault();
 
-  const [delayInput, stepInput, amountInput] = inputs;
+  const delayInput = document.querySelector('input[name="delay"]');
+  const stepInput = document.querySelector('input[name="step"]');
+  const amountInput = document.querySelector('input[name="amount"]');
 
   const delay = parseInt(delayInput.value);
   const step = parseInt(stepInput.value);
   const amount = parseInt(amountInput.value);
 
-  inputs.forEach((input, i) => {
+  for (let i = 1; i <= amount; i++) {
     createPromise(i, delay + step * i)
       .then(({ position, delay }) => {
         console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
@@ -20,7 +21,7 @@ function onButton(event) {
       .catch(({ position, delay }) => {
         console.log(`❌ Rejected promise ${position} in ${delay}ms`);
       });
-  });
+  }
 }
 
 function createPromise(position, delay) {

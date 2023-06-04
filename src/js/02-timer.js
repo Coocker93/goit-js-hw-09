@@ -57,7 +57,6 @@ function updateDateTime() {
         hoursEl.textContent = '00';
         minutesEl.textContent = '00';
         secondsEl.textContent = '00';
-        btnEl.disabled = false;
         datetimePicker.disabled = false;
         return;
     }

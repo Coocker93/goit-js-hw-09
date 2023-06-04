@@ -9,18 +9,22 @@ function handleSubmit(event) {
   const stepInput = document.querySelector('input[name="step"]');
   const amountInput = document.querySelector('input[name="amount"]');
 
-  const delay = parseInt(delayInput.value);
-  const step = parseInt(stepInput.value);
+  const firstDelay = parseInt(delayInput.value);
+  const delayStep = parseInt(stepInput.value);
   const amount = parseInt(amountInput.value);
 
+  let currentDelay = firstDelay;
+
   for (let i = 1; i <= amount; i++) {
-    createPromise(i, delay + step * i)
+    createPromise(i, currentDelay)
       .then(({ position, delay }) => {
         console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
       })
       .catch(({ position, delay }) => {
         console.log(`❌ Rejected promise ${position} in ${delay}ms`);
       });
+
+    currentDelay += delayStep;
   }
 }
 
